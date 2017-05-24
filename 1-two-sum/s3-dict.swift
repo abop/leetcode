@@ -1,23 +1,18 @@
-// https://leetcode.com/submissions/detail/103866686/
+// https://leetcode.com/submissions/detail/103868397/
 class Solution {
     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
-        var dic:Dictionary<Int, [Int]> = Dictionary()
+        var dic = [Int:Int]()
         nums.enumerated().forEach({(idx, num) in 
-            if let curIndexed = dic[num] {
-                dic[num] = curIndexed + [idx]
-            } else {
-                dic[num] = [idx]
-            }
+                dic[num] = idx
         })
         // let other = 0
-        for (num, idxes) in dic {
+        for idx in 0..<nums.count {
+            let num = nums[idx]
             let otherNum = target-num
-            if otherNum == num {
-                if idxes.count > 1 {
-                    return [idxes[0], idxes[1]]
+            if let otherIdx = dic[otherNum] {
+                if otherIdx != idx {
+                    return [idx, otherIdx]
                 }
-            } else if let otherIdxes = dic[otherNum] {
-                return [idxes[0], otherIdxes[0]]
             }
         }
         return []
